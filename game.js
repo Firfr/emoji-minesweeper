@@ -21,8 +21,8 @@ var Game = function (cols, rows, number_of_bombs, set, usetwemoji) {
 Game.prototype.init = function () {
   this.prepareEmoji()
 
-  if (this.number_of_cells > 2500) { alert('too big, go away, have less than 2500 cells'); return false }
-  if (this.number_of_cells <= this.number_of_bombs) { alert('more bombs than cells, can\'t do it'); return false }
+  if (this.number_of_cells > 2500) { alert('太大了，不行了，格子最支持 2500 个'); return false }
+  if (this.number_of_cells <= this.number_of_bombs) { alert('炸弹数量比格子还多，不行啊'); return false }
   var that = this
   this.moveIt(true)
   this.map.innerHTML = ''
@@ -110,12 +110,12 @@ Game.prototype.bindEvents = function () {
       if (!target.isMasked) { return }
       if (target.isFlagged) {
         target.setAttribute('aria-label','Field')
-        that.updateFeedback('Unflagged as potential bomb')
+        that.updateFeedback('取消标记')
         emoji = that.emojiset[3].cloneNode()
         target.isFlagged = false
       } else {
-        target.setAttribute('aria-label', 'Flagged as potential bomb')
-        that.updateFeedback('Flagged as potential bomb')
+        target.setAttribute('aria-label', '标记为雷')
+        that.updateFeedback('标记为雷')
         emoji = that.emojiset[2].cloneNode()
         target.isFlagged = true
       }
@@ -201,7 +201,7 @@ Game.prototype.mine = function (bomb) {
   if (bomb) base.isBomb = true
   base.reveal = function (won) {
     var emoji = base.isBomb ? (won ? that.emojiset[2] : that.emojiset[1]) : that.numbermoji[base.mine_count]
-    var text = base.isBomb ? (won ? "Bomb discovered" : "Boom!") : (base.mine_count === 0 ? "Empty field" : base.mine_count + " bombs nearby")
+    var text = base.isBomb ? (won ? "发现炸弹" : "爆炸!") : (base.mine_count === 0 ? "空地" : base.mine_count + " 附近有炸弹")
     this.childNodes[0].remove()
     this.setAttribute('aria-label', text)
     this.appendChild(emoji.cloneNode())
@@ -293,7 +293,7 @@ Game.prototype.showMessage = function () {
   var seconds = ((new Date() - this.startTime) / 1000).toFixed(2)
   var winner = this.result === 'won'
   var emoji = winner ? '😎' : '😵'
-  this.updateFeedback(winner ? "Yay, you won!" : "Boom! you lost.")
+  this.updateFeedback(winner ? "太棒了，你赢了！" : "爆炸了！你输了。")
   document.querySelector('.wrapper').classList.add(this.result)
   document.getElementById('timer').textContent = seconds
   document.getElementById('result').innerHTML = this.usetwemoji ? twemoji.parse(emoji) : emoji
@@ -301,6 +301,6 @@ Game.prototype.showMessage = function () {
 
 // console documentation
 
-console.log('Use: `new Game(cols, rows, bombs, [emptyemoji, bombemoji, flagemoji, starteremoji], twemojiOrNot)` to start a new game with customizations.')
-console.log(' Eg: `game = new Game(10, 10, 10, ["🌱", "💥", "🚩", "◻️"], false)`')
-console.log(' Or: `game = new Game(16, 16, 30, ["🐣", "💣", "🚧", "◻️"], true)`')
+console.log('用法：`new Game(列数, 行数, 炸弹数, [空格表情, 炸弹表情, 旗帜表情, 起始表情], 是否使用 Twemoji)` 来自定义并开始一局新游戏。')
+console.log(' 示例：`game = new Game(10, 10, 10, ["🌱", "💥", "🚩", "◻️"], false)`')
+console.log(' 或者：`game = new Game(16, 16, 30, ["🐣", "💣", "🚧", "◻️"], true)`')
