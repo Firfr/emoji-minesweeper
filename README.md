@@ -3,7 +3,13 @@
 
 ## 部署说明
 
-首先感谢原作者的开源。[原项目地址](https://github.com/muan/emoji-minesweeper)
+首先感谢原作者的开源。
+- 原项目地址
+  - 官网 https://muan.co/emoji-minesweeper/
+  - GitHub仓库 https://github.com/muan/emoji-minesweeper
+- 我汉化和构建docker镜像的仓库
+  - GitHub仓库 https://github.com/Firfr/emoji-minesweeper
+  - Gitee仓库 https://gitee.com/firfe/emoji-minesweeper
 
 具体汉化了那些内容，请参考[翻译说明](./翻译说明.md)。
 
@@ -21,10 +27,14 @@
 从阿里云或华为云镜像仓库拉取镜像，注意填写镜像标签，镜像仓库中没有`latest`标签
 
 容器内部端口 3000
-
-```bash
-swr.cn-north-4.myhuaweicloud.com/firfe/emoji-minesweeper:2025.05.09
-```
+- AMD64镜像
+  ```bash
+  swr.cn-north-4.myhuaweicloud.com/firfe/emoji-minesweeper:2025.05.09
+  ```
+- ARM64镜像
+  ```bash
+  swr.cn-north-4.myhuaweicloud.com/firfe/emoji-minesweeper:2025.05.09-arm64
+  ```
 
 ### docker run 命令部署
 
